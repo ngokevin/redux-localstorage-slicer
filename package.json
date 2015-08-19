@@ -1,0 +1,38 @@
+{
+  "name": "redux-localstorage-slicer",
+  "version": "0.1.0",
+  "description": "Custom slicer for redux-localstorage that allows reducers to define their own persistence configuration.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^5.4.7",
+    "babel-runtime": "^5.8.20",
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "pretest": "babel test.es6 -o test.js && babel index.es6 -o index.js",
+    "test": "mocha test.js",
+    "prepublish": "babel index.es6 -o index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngokevin/redux-localstorage-slicer"
+  },
+  "keywords": [
+    "redux",
+    "redux-localstorage",
+    "store",
+    "localstorage",
+    "localstore",
+    "slice",
+    "sync",
+    "state",
+    "slicer"
+  ],
+  "author": "Kevin Ngo <me@ngokevin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngokevin/redux-localstorage-slicer/issues"
+  },
+  "homepage": "https://github.com/ngokevin/redux-localstorge-slicer"
+}
