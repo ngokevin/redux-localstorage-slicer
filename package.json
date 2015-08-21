@@ -1,6 +1,6 @@
 {
   "name": "redux-localstorage-slicer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Custom slicer for redux-localstorage that allows reducers to define their own persistence configuration.",
   "main": "index.js",
   "dependencies": {},

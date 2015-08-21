@@ -24,13 +24,13 @@ const createPersistentStore = compose(
 
 **myReducer.js**
 
-Setting state.meta.persist to ```true``` will persist the whole substate
+Setting state._meta.persist to ```true``` will persist the whole substate
 managed by the reducer.
 
 ```js
 // Both state.foo and state.bar will be persisted.
 const initialState = {
-  meta: {
+  _meta: {
     persist: true
   },
   foo: 'foo',
@@ -38,13 +38,13 @@ const initialState = {
 };
 ```
 
-Setting state.meta.persist to a transformer function or array of keys will
+Setting state._meta.persist to a transformer function or array of keys will
 allow the reducer to further slice the substate it manages.
 
 ```js
 // Only state.foo will be persisted.
 const initialState = {
-  meta: {
+  _meta: {
     persist: state => {
       return state.foo
     }
@@ -57,7 +57,7 @@ const initialState = {
 ```js
 // Only state.bar will be persisted.
 const initialState = {
-  meta: {
+  _meta: {
     persist: ['bar']
   },
   foo: 'foo',

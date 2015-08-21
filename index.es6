@@ -8,24 +8,24 @@ export default function createSlicer() {
         // Loop through each branch of the state, building our synced state.
         const substate = state[path];
 
-        if (substate.meta && substate.meta.persist) {
-          // Only persist if meta.persist is specified.
-          const persist = substate.meta.persist;
+        if (substate._meta && substate._meta.persist) {
+          // Only persist if _meta.persist is specified.
+          const persist = substate._meta.persist;
 
           if (persist === true) {
-            // Sync the whole state if meta.persist is just `true`.
+            // Sync the whole state if _meta.persist is just `true`.
             syncedState[path] = substate;
 
           } else if (persist.constructor === Function) {
             // Sync state according to function.
             const subsubstate = persist(substate);
 
-            // Always have to keep meta.persist around.
-            if (!subsubstate.meta) {
-              subsubstate.meta = {};
+            // Always have to keep _meta.persist around.
+            if (!subsubstate._meta) {
+              subsubstate._meta = {};
             }
-            if (!subsubstate.meta.persist) {
-              subsubstate.meta.persist = persist;
+            if (!subsubstate._meta.persist) {
+              subsubstate._meta.persist = persist;
             }
             syncedState[path] = subsubstate;
 
@@ -36,12 +36,12 @@ export default function createSlicer() {
               subsubstate[key] = substate[key];
             });
 
-            // Always have to keep meta.persist around.
-            if (!subsubstate.meta) {
-              subsubstate.meta = {};
+            // Always have to keep _meta.persist around.
+            if (!subsubstate._meta) {
+              subsubstate._meta = {};
             }
-            if (!subsubstate.meta.persist) {
-              subsubstate.meta.persist = persist;
+            if (!subsubstate._meta.persist) {
+              subsubstate._meta.persist = persist;
             }
             syncedState[path] = subsubstate;
 
