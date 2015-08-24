@@ -23,18 +23,14 @@ describe('redux-localstorage-slicer', function () {
   it('handles persist is true', function () {
     var state = {
       fooState: {
-        _meta: {
-          persist: true
-        },
+        __persist: true,
         bar: 'bar',
         foo: 'foo'
       }
     };
     _assert2['default'].deepEqual((0, _index2['default'])()()(state), {
       fooState: {
-        _meta: {
-          persist: true
-        },
+        __persist: true,
         bar: 'bar',
         foo: 'foo'
       }
@@ -44,11 +40,9 @@ describe('redux-localstorage-slicer', function () {
   it('handles persist is function', function () {
     var state = {
       fooState: {
-        _meta: {
-          persist: function persist(state) {
-            delete state.foo;
-            return state;
-          }
+        __persist: function __persist(state) {
+          delete state.foo;
+          return state;
         },
         bar: 'bar',
         foo: 'foo'
@@ -58,24 +52,20 @@ describe('redux-localstorage-slicer', function () {
     var slicedState = (0, _index2['default'])()()(state);
     _assert2['default'].ok(slicedState.fooState.bar);
     _assert2['default'].ok(!slicedState.fooState.foo);
-    _assert2['default'].ok(slicedState.fooState._meta);
+    _assert2['default'].ok(slicedState.fooState.__persist);
   });
 
   it('handles persist is array', function () {
     var state = {
       fooState: {
-        _meta: {
-          persist: ['foo']
-        },
+        __persist: ['foo'],
         bar: 'bar',
         foo: 'foo'
       }
     };
     _assert2['default'].deepEqual((0, _index2['default'])()()(state), {
       fooState: {
-        _meta: {
-          persist: ['foo']
-        },
+        __persist: ['foo'],
         foo: 'foo'
       }
     });

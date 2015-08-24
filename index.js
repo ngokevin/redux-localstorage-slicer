@@ -15,23 +15,20 @@ function createSlicer() {
         // Loop through each branch of the state, building our synced state.
         var substate = state[path];
 
-        if (substate._meta && substate._meta.persist) {
-          // Only persist if _meta.persist is specified.
-          var persist = substate._meta.persist;
+        if (substate.__persist) {
+          // Only persist if __persist is specified.
+          var persist = substate.__persist;
 
           if (persist === true) {
-            // Sync the whole state if _meta.persist is just `true`.
+            // Sync the whole state if __persist is just `true`.
             syncedState[path] = substate;
           } else if (persist.constructor === Function) {
             // Sync state according to function.
             var subsubstate = persist(substate);
 
-            // Always have to keep _meta.persist around.
-            if (!subsubstate._meta) {
-              subsubstate._meta = {};
-            }
-            if (!subsubstate._meta.persist) {
-              subsubstate._meta.persist = persist;
+            // Always have to keep __persist around.
+            if (!subsubstate.__persist) {
+              subsubstate.__persist = persist;
             }
             syncedState[path] = subsubstate;
           } else if (persist.constructor === Array) {
@@ -42,12 +39,9 @@ function createSlicer() {
                 subsubstate[key] = substate[key];
               });
 
-              // Always have to keep _meta.persist around.
-              if (!subsubstate._meta) {
-                subsubstate._meta = {};
-              }
-              if (!subsubstate._meta.persist) {
-                subsubstate._meta.persist = persist;
+              // Always have to keep __persist around.
+              if (!subsubstate.__persist) {
+                subsubstate.__persist = persist;
               }
               syncedState[path] = subsubstate;
             })();
