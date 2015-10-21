@@ -56,3 +56,16 @@ const initialState = {
   bar: 'bar',
 };
 ```
+
+## localStorage Versioning
+
+We can pass a version number into ```persistSlicer```. Whenever the slicer
+detects that we have set a number and that we have updated that number, then
+the slicer will go ahead to invalidate localStorage.redux.
+
+```js
+const REDUX_LOCALSTORAGE_VERSION = 1;
+
+persistState(null {
+  slicer: persistSlicer(REDUX_LOCALSTORAGE_VERSION)
+});

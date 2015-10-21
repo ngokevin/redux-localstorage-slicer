@@ -1,12 +1,26 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports["default"] = createSlicer;
+exports['default'] = createSlicer;
+var LS_VERSION_KEY = '__redux-localstorage-slicer-version';
 
-function createSlicer() {
-  // Slicer that allows each reducer to define their own persist configuration.
+exports.LS_VERSION_KEY = LS_VERSION_KEY;
+/**
+ * Slicer that allows each reducer to define their own persist configuration.
+ */
+
+function createSlicer(version) {
+  if (version !== undefined) {
+    // For invalidation.
+    var currentVersion = localStorage.getItem(LS_VERSION_KEY);
+    if (version > currentVersion) {
+      localStorage.clear();
+      localStorage.setItem(LS_VERSION_KEY, version);
+    }
+  }
+
   return function (paths) {
     return function (state) {
       var syncedState = {};

@@ -1,5 +1,19 @@
-export default function createSlicer() {
-  // Slicer that allows each reducer to define their own persist configuration.
+export const LS_VERSION_KEY = '__redux-localstorage-slicer-version';
+
+
+/**
+ * Slicer that allows each reducer to define their own persist configuration.
+ */
+export default function createSlicer(version) {
+  if (version !== undefined) {
+    // For invalidation.
+    const currentVersion = localStorage.getItem(LS_VERSION_KEY);
+    if (version > currentVersion) {
+      localStorage.removeItem('redux');
+      localStorage.setItem(LS_VERSION_KEY, version);
+    }
+  }
+
   return paths => {
     return state => {
       let syncedState = {};
