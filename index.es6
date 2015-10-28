@@ -21,6 +21,9 @@ export default function createSlicer(version) {
       Object.keys(state).forEach(path => {
         // Loop through each branch of the state, building our synced state.
         const substate = state[path];
+        if (!substate) {
+          return;
+        }
 
         if (substate.__persist) {
           // Only persist if __persist is specified.

@@ -16,7 +16,7 @@ function createSlicer(version) {
     // For invalidation.
     var currentVersion = localStorage.getItem(LS_VERSION_KEY);
     if (version > currentVersion) {
-      localStorage.clear();
+      localStorage.removeItem('redux');
       localStorage.setItem(LS_VERSION_KEY, version);
     }
   }
@@ -28,6 +28,9 @@ function createSlicer(version) {
       Object.keys(state).forEach(function (path) {
         // Loop through each branch of the state, building our synced state.
         var substate = state[path];
+        if (!substate) {
+          return;
+        }
 
         if (substate.__persist) {
           // Only persist if __persist is specified.
